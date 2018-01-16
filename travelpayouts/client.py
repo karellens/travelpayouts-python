@@ -1,10 +1,7 @@
 import functools
 import urllib.request
+from urllib.parse import urlencode
 import json
-try: # Python 3
-    from urllib.parse import urlencode
-except ImportError: # Python 2
-    from urllib import urlencode
 
 
 class Client(object):
@@ -19,13 +16,23 @@ class Client(object):
         self.token = token
 
     def _request(self, url, params):
-        params['token'] = self.token
 
-        with urllib.request.urlopen(url) as r:
-            return json.loads(r.read().decode())
+        headers = {
+            'Content-Type': 'application/json',
+            'X-Access-Token': self.token,
+            'Accept-Encoding': 'gzip,deflate,sdch'
+        }
+
+        data = urlencode(params)
+
+        req = urllib.request.Request(url, data, headers, method='GET')
+
+        with urllib.request.urlopen(req) as response:
+            return json.loads(response.read().decode())
 
 
 from travelpayouts.common import whereami
+from travelpayouts.common import prices_latest
 
 
 def make_api_method(func):
@@ -49,4 +56,6 @@ def make_api_method(func):
         return result
     return wrapper
 
+
 Client.whereami = make_api_method(whereami)
+Client.prices_latest = make_api_method(prices_latest)

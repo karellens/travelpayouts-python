@@ -17,7 +17,7 @@ download_url = (
 
 setup(name='travelpayouts-python',
       version=version,
-      description='Travel Payouts API Python Wrapper',
+      description='Travel Payouts API Wrapper',
       long_description=readme,
       url='http://github.com/karellens/travelpayouts-python',
       download_url=download_url % version,
