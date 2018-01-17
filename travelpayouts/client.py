@@ -14,7 +14,7 @@ class Client(object):
 
         self.token = token
 
-    def _request(self, url, params):
+    def _request(self, url, params=None):
 
         headers = {
             'Content-Type': 'application/json',
@@ -22,14 +22,24 @@ class Client(object):
             'Accept-Encoding': 'gzip,deflate,sdch'
         }
 
-        data = urlencode(params)
-        r = requests.get(url + '?' + data, headers=headers)
+        full_url = url + '?' + urlencode(params) if params else url
+        r = requests.get(full_url, headers=headers)
 
         return r.json()
 
 
 from travelpayouts.common import whereami
-from travelpayouts.common import prices_latest
+from travelpayouts.common import countries
+from travelpayouts.common import cities
+from travelpayouts.common import airports
+from travelpayouts.common import airlines
+from travelpayouts.common import airlines_alliances
+from travelpayouts.common import planes
+from travelpayouts.common import routes
+from travelpayouts.v2 import prices_latest
+from travelpayouts.v2 import month_matrix
+from travelpayouts.v2 import week_matrix
+from travelpayouts.v2 import nearest_places_matrix
 
 
 def make_api_method(func):
@@ -55,4 +65,14 @@ def make_api_method(func):
 
 
 Client.whereami = make_api_method(whereami)
+Client.countries = make_api_method(countries)
+Client.cities = make_api_method(cities)
+Client.airports = make_api_method(airports)
+Client.airlines = make_api_method(airlines)
+Client.airlines_alliances = make_api_method(airlines_alliances)
+Client.planes = make_api_method(planes)
+Client.routes = make_api_method(routes)
 Client.prices_latest = make_api_method(prices_latest)
+Client.month_matrix = make_api_method(month_matrix)
+Client.week_matrix = make_api_method(week_matrix)
+Client.nearest_places_matrix = make_api_method(nearest_places_matrix)
