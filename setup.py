@@ -28,4 +28,10 @@ setup(name='travelpayouts-python',
       install_requires=[
           'requests',
       ],
+      classifiers=[
+          'Development Status :: 3 - Alpha',
+          'Intended Audience :: Developers',
+          'Programming Language :: Python :: 3'
+      ],
+      python_requires='>=3',
       zip_safe=False)
