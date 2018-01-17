@@ -1,7 +1,6 @@
 import functools
-import urllib.request
+import requests
 from urllib.parse import urlencode
-import json
 
 
 class Client(object):
@@ -24,11 +23,9 @@ class Client(object):
         }
 
         data = urlencode(params)
+        r = requests.get(url + '?' + data, headers=headers)
 
-        req = urllib.request.Request(url, data, headers, method='GET')
-
-        with urllib.request.urlopen(req) as response:
-            return json.loads(response.read().decode())
+        return r.json()
 
 
 from travelpayouts.common import whereami

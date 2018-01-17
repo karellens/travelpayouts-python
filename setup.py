@@ -25,4 +25,7 @@ setup(name='travelpayouts-python',
       author_email='mm@karellens.com',
       license='MIT',
       packages=['travelpayouts'],
+      install_requires=[
+          'requests',
+      ],
       zip_safe=False)
