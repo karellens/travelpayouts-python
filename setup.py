@@ -12,7 +12,7 @@ with open('README.rst', 'r') as r:
     readme = r.read()
 
 download_url = (
-    'https://github.com/karellens/travelpayouts-python/tarball/%s'
+    'https://github.com/karellens/travelpayouts-python/archive/%s.tar.gz'
 )
 
 setup(name='travelpayouts-python',
