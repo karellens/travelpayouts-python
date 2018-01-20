@@ -15,7 +15,7 @@ download_url = (
     'https://github.com/karellens/travelpayouts-python/archive/%s.tar.gz'
 )
 
-setup(name='travelpayouts-python',
+setup(name='travelpayouts',
       version=version,
       description='Travel Payouts API Wrapper',
       long_description=readme,

@@ -1,1 +1,1 @@
-# travelpayouts-python
+# travelpayouts
