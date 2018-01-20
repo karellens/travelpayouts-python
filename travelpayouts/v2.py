@@ -262,10 +262,10 @@ def nearest_places_matrix(client,
         found using the partner marker (recommended). The default value - true.
     :type show_to_affiliates: bool
 
-    :param depart_date: (optional) month of departure (yyyy-mm).
+    :param depart_date: (optional) month of departure (yyyy-mm-dd).
     :type depart_date: string
 
-    :param return_date: (optional) month of return (yyyy-mm).
+    :param return_date: (optional) month of return (yyyy-mm-dd).
     :type return_date: string
 
     :param flexibility: expansion of the range of dates upward or downward. The value may vary from 0 to 7,
@@ -289,10 +289,10 @@ def nearest_places_matrix(client,
     }
 
     if depart_date:
-        params["depart_date"] = depart_date.strftime('%Y-%m')
+        params["depart_date"] = depart_date.strftime('%Y-%m-%d')
 
     if return_date:
-        params["return_date"] = return_date.strftime('%Y-%m')
+        params["return_date"] = return_date.strftime('%Y-%m-%d')
 
     data = client._request(API_V2_URL+"/prices/nearest-places-matrix", params)
 
