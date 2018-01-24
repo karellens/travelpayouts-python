@@ -306,6 +306,6 @@ def nearest_places_matrix(client,
                 else None
 
     except KeyError:
-        raise travelpayouts.exceptions.ApiError(json.dumps(data['errors']))
+        raise travelpayouts.exceptions.ApiError(json.dumps(data))
 
     return data
