@@ -1,18 +1,22 @@
 import functools
 import requests
 from urllib.parse import urlencode
+from travelpayouts.exceptions import ApiError
 
 
 class Client(object):
     """Performs requests to the Travel Payouts API."""
 
-    def __init__(self, token=None):
+    def __init__(self, token=None, marker=None):
         """
         :param token: Travel Payouts API token
         :type token: string
+        :param marker: The unique identifier of the affiliate
+        :type marker: string
         """
 
         self.token = token
+        self.marker = marker
 
     def _request(self, url, params=None):
 
@@ -24,6 +28,21 @@ class Client(object):
 
         full_url = url + '?' + urlencode(params) if params else url
         r = requests.get(full_url, headers=headers)
+
+        return r.json()
+
+    def _post(self, url, params=None, json=None):
+
+        headers = {
+            'Content-Type': 'application/json',
+            'Accept-Encoding': 'gzip,deflate,sdch'
+        }
+
+        full_url = url + '?' + urlencode(params) if params else url
+        r = requests.post(full_url, headers=headers, json=json)
+
+        if not r.ok:
+            raise ApiError(r.status_code, r.text)
 
         return r.json()
 
@@ -40,6 +59,13 @@ from travelpayouts.v2 import prices_latest
 from travelpayouts.v2 import month_matrix
 from travelpayouts.v2 import week_matrix
 from travelpayouts.v2 import nearest_places_matrix
+from travelpayouts.v1 import prices_cheap
+from travelpayouts.v1 import prices_direct
+from travelpayouts.v1 import prices_calendar
+from travelpayouts.v1 import airline_directions
+from travelpayouts.v1 import city_directions
+from travelpayouts.flights import search
+from travelpayouts.flights import search_results
 
 
 def make_api_method(func):
@@ -76,3 +102,10 @@ Client.prices_latest = make_api_method(prices_latest)
 Client.month_matrix = make_api_method(month_matrix)
 Client.week_matrix = make_api_method(week_matrix)
 Client.nearest_places_matrix = make_api_method(nearest_places_matrix)
+Client.prices_cheap = make_api_method(prices_cheap)
+Client.prices_direct = make_api_method(prices_direct)
+Client.prices_calendar = make_api_method(prices_calendar)
+Client.airline_directions = make_api_method(airline_directions)
+Client.city_directions = make_api_method(city_directions)
+Client.search = make_api_method(search)
+Client.search_results = make_api_method(search_results)
