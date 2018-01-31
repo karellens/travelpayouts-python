@@ -13,7 +13,7 @@ def whereami(client, ip, locale='en', callback=None):
     if callback:
         params["callback"] = callback
 
-    return client._request(BASE_URL+"/whereami", params)
+    return client._get(BASE_URL+"/whereami", params)
 
 
 def countries(client):
@@ -22,7 +22,7 @@ def countries(client):
     :rtype: list of countries
     """
 
-    data = client._request(API_DATA_URL+"/countries.json")
+    data = client._get(API_DATA_URL+"/countries.json")
 
     return data
 
@@ -33,7 +33,7 @@ def cities(client):
     :rtype: list of cities
     """
 
-    data = client._request(API_DATA_URL+"/cities.json")
+    data = client._get(API_DATA_URL+"/cities.json")
 
     return data
 
@@ -44,7 +44,7 @@ def airports(client):
     :rtype: list of airports
     """
 
-    data = client._request(API_DATA_URL+"/airports.json")
+    data = client._get(API_DATA_URL+"/airports.json")
 
     return data
 
@@ -55,7 +55,7 @@ def airlines(client):
     :rtype: list of airports
     """
 
-    data = client._request(API_DATA_URL+"/airlines.json")
+    data = client._get(API_DATA_URL+"/airlines.json")
 
     return data
 
@@ -66,7 +66,7 @@ def airlines_alliances(client):
     :rtype: list of alliances
     """
 
-    data = client._request(API_DATA_URL+"/airlines_alliances.json")
+    data = client._get(API_DATA_URL+"/airlines_alliances.json")
 
     return data
 
@@ -77,7 +77,7 @@ def planes(client):
     :rtype: list of airplanes
     """
 
-    data = client._request(API_DATA_URL+"/planes.json")
+    data = client._get(API_DATA_URL+"/planes.json")
 
     return data
 
@@ -88,6 +88,6 @@ def routes(client):
     :rtype: list of routes
     """
 
-    data = client._request(API_DATA_URL+"/routes.json")
+    data = client._get(API_DATA_URL+"/routes.json")
 
     return data

@@ -92,7 +92,7 @@ def prices_latest(client,
     else:
         params["beginning_of_period"] = beginning_of_period.strftime('%Y-%m-%d')
 
-    data = client._request(API_V2_URL+"/prices/latest", params)
+    data = client._get(API_V2_URL+"/prices/latest", params)
 
     if data['success']:
         for v in data['data']:
@@ -149,7 +149,7 @@ def month_matrix(client,
     else:
         params["month"] = month.strftime('%Y-%m-%d')
 
-    data = client._request(API_V2_URL+"/prices/month-matrix", params)
+    data = client._get(API_V2_URL+"/prices/month-matrix", params)
 
     if data['success']:
         for v in data['data']:
@@ -214,7 +214,7 @@ def week_matrix(client,
     if return_date:
         params["return_date"] = return_date.strftime('%Y-%m-%d')
 
-    data = client._request(API_V2_URL+"/prices/week-matrix", params)
+    data = client._get(API_V2_URL+"/prices/week-matrix", params)
 
     if data['success']:
         for v in data['data']:
@@ -294,7 +294,7 @@ def nearest_places_matrix(client,
     if return_date:
         params["return_date"] = return_date.strftime('%Y-%m-%d')
 
-    data = client._request(API_V2_URL+"/prices/nearest-places-matrix", params)
+    data = client._get(API_V2_URL+"/prices/nearest-places-matrix", params)
 
     try:
         for v in data['data']:

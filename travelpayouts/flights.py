@@ -50,12 +50,16 @@ def search(client,
         'marker': client.marker
     }
 
-    body['_signature'] = _signature(body, client.token)
+    body['signature'] = _signature(body, client.token)
 
     data = client._post(API_V1_URL + "/flight_search", json=body)
 
     return data
 
 
-def search_results(client):
-    pass
+def search_results(client, search_uuid):
+    params = {"uuid": search_uuid}
+
+    data = client._get(API_V1_URL + "/flight_search_results", params)
+
+    return data

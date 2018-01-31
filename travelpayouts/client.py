@@ -18,7 +18,7 @@ class Client(object):
         self.token = token
         self.marker = marker
 
-    def _request(self, url, params=None):
+    def _get(self, url, params=None):
 
         headers = {
             'Content-Type': 'application/json',
