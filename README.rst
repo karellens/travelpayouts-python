@@ -1,7 +1,7 @@
 .. begin_intro
 
 TravelPayouts
-=======
+=============
 
 .. image:: https://badge.fury.io/py/travelpayouts.svg
     :target: https://badge.fury.io/py/travelpayouts
