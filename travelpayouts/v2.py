@@ -94,14 +94,14 @@ def prices_latest(client,
 
     data = client._get(API_V2_URL+"/prices/latest", params)
 
-    if data['success']:
+    if 'success' in data:
         for v in data['data']:
             v['depart_date'] = datetime.datetime.strptime(v['depart_date'], "%Y-%m-%d").date()
             v['found_at'] = datetime.datetime.strptime(v['found_at'], "%Y-%m-%dT%H:%M:%S")
             v['return_date'] = datetime.datetime.strptime(v['return_date'], "%Y-%m-%d").date()
 
     else:
-        raise travelpayouts.exceptions.ApiError(data['error'])
+        raise travelpayouts.exceptions.ApiError(data['errors'])
 
     return data
 
@@ -151,7 +151,7 @@ def month_matrix(client,
 
     data = client._get(API_V2_URL+"/prices/month-matrix", params)
 
-    if data['success']:
+    if 'success' in data:
         for v in data['data']:
             v['depart_date'] = datetime.datetime.strptime(v['depart_date'], "%Y-%m-%d").date()
             # found_at has ununified format. It may has milliseconds
@@ -161,7 +161,7 @@ def month_matrix(client,
                 else None
 
     else:
-        raise travelpayouts.exceptions.ApiError(data['error'])
+        raise travelpayouts.exceptions.ApiError(data['errors'])
 
     return data
 
@@ -216,7 +216,7 @@ def week_matrix(client,
 
     data = client._get(API_V2_URL+"/prices/week-matrix", params)
 
-    if data['success']:
+    if 'success' in data:
         for v in data['data']:
             v['depart_date'] = datetime.datetime.strptime(v['depart_date'], "%Y-%m-%d").date()
             # found_at has ununified format. It may has milliseconds

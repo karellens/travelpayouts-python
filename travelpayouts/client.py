@@ -17,29 +17,24 @@ class Client(object):
 
         self.token = token
         self.marker = marker
+        self.default_headers = {
+            'Accept': 'application/json',
+            'Accept-Encoding': 'gzip,deflate,sdch',
+            'Content-Type': 'application/json',
+            'X-Access-Token': self.token
+        }
 
     def _get(self, url, params=None):
 
-        headers = {
-            'Content-Type': 'application/json',
-            'X-Access-Token': self.token,
-            'Accept-Encoding': 'gzip,deflate,sdch'
-        }
-
         full_url = url + '?' + urlencode(params) if params else url
-        r = requests.get(full_url, headers=headers)
+        r = requests.get(full_url, headers=self.default_headers)
 
         return r.json()
 
     def _post(self, url, params=None, json=None):
 
-        headers = {
-            'Content-Type': 'application/json',
-            'Accept-Encoding': 'gzip,deflate,sdch'
-        }
-
         full_url = url + '?' + urlencode(params) if params else url
-        r = requests.post(full_url, headers=headers, json=json)
+        r = requests.post(full_url, headers=self.default_headers, json=json)
 
         if not r.ok:
             raise ApiError(r.status_code, r.text)

@@ -1,4 +1,4 @@
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 from travelpayouts.client import Client
 # import travelpayouts.exceptions
