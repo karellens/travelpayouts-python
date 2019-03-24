@@ -1,5 +1,4 @@
 import datetime
-import json
 import travelpayouts.exceptions
 
 API_V2_URL = 'http://api.travelpayouts.com/v2'
@@ -22,7 +21,7 @@ def prices_latest(client,
     """Returns the cheapest non-stop, one-stop, and two-stop flights for the selected route for each day of
      the selected month.
 
-    :param origin:  the point of departure. The IATA city code or the country code. The length - from 2 to 3 symbols.
+    :param origin: the point of departure. The IATA city code or the country code. The length - from 2 to 3 symbols.
     :type origin: string
 
     :param destination: the point of destination. The IATA city code or the country code.
@@ -50,7 +49,7 @@ def prices_latest(client,
     :param page: a page number. The default value - 1.
     :type page: int
 
-    :param limit:  the total number of records on a page. The default value - 30. The maximum value - 1000.
+    :param limit: the total number of records on a page. The default value - 30. The maximum value - 1000.
     :type limit: int
 
     :param show_to_affiliates: false - all the prices, true - just the prices,
@@ -114,12 +113,12 @@ def prices_latest(client,
 
 
 def month_matrix(client,
-                  currency='usd',
-                  origin=None,
-                  destination=None,
-                  show_to_affiliates=True,
-                  month=None
-                  ):
+                 currency='usd',
+                 origin=None,
+                 destination=None,
+                 show_to_affiliates=True,
+                 month=None
+                 ):
     """Brings back the prices for each day of a month, grouped together by number of transfers.
 
     :param origin:  the point of departure. The IATA city code or the country code. The length - from 2 to 3 symbols.
@@ -137,6 +136,10 @@ def month_matrix(client,
 
     :param month: the beginning of the month in the YYYY-MM-DD format.
     :type month: datetime.date
+
+    :param show_to_affiliates: false - all the prices, true - just the prices,
+        found using the partner marker (recommended). The default value - true.
+    :type show_to_affiliates: bool
 
     :rtype: list of flights
     """
@@ -173,13 +176,13 @@ def month_matrix(client,
 
 
 def week_matrix(client,
-                  currency='usd',
-                  origin=None,
-                  destination=None,
-                  show_to_affiliates=True,
-                  depart_date=None,
-                  return_date=None,
-                  ):
+                currency='usd',
+                origin=None,
+                destination=None,
+                show_to_affiliates=True,
+                depart_date=None,
+                return_date=None,
+                ):
     """Brings back the prices for the nearest dates to the target ones.
 
     :param origin:  the point of departure. The IATA city code or the country code. The length - from 2 to 3 symbols.
@@ -215,10 +218,10 @@ def week_matrix(client,
         params["destination"] = destination
 
     if depart_date:
-        params["depart_date"] = depart_date.strftime('%Y-%m-%d')
+        params["depart_date"] = depart_date
 
     if return_date:
-        params["return_date"] = return_date.strftime('%Y-%m-%d')
+        params["return_date"] = return_date
 
     data = client._get(API_V2_URL+"/prices/week-matrix", params)
 
@@ -231,22 +234,22 @@ def week_matrix(client,
                 else None
 
     else:
-        raise travelpayouts.exceptions.ApiError(data['error'])
+        raise travelpayouts.exceptions.ApiError(data['errors'])
 
     return data
 
 
 def nearest_places_matrix(client,
-                  currency='usd',
-                  origin=None,
-                  destination=None,
-                  limit=1,
-                  show_to_affiliates=True,
-                  depart_date=None,
-                  return_date=None,
-                  flexibility=0,
-                  distance=1,
-                  ):
+                          currency='usd',
+                          origin=None,
+                          destination=None,
+                          limit=1,
+                          show_to_affiliates=True,
+                          depart_date=None,
+                          return_date=None,
+                          flexibility=0,
+                          distance=1,
+                          ):
     """Brings back the prices for the directions between the nearest to the target cities.
 
     :param origin:  the point of departure. The IATA city code or the country code. The length - from 2 to 3 symbols.
@@ -281,7 +284,7 @@ def nearest_places_matrix(client,
     :param distance: the distance between the point of departure and the point of destination.
     :type distance: int
 
-    :rtype: list of prices origins and destionations
+    :rtype: list of prices origins and destinations
     """
     params = {
         'currency': currency,
@@ -294,10 +297,10 @@ def nearest_places_matrix(client,
     }
 
     if depart_date:
-        params["depart_date"] = depart_date.strftime('%Y-%m-%d')
+        params["depart_date"] = depart_date
 
     if return_date:
-        params["return_date"] = return_date.strftime('%Y-%m-%d')
+        params["return_date"] = return_date
 
     data = client._get(API_V2_URL+"/prices/nearest-places-matrix", params)
 
@@ -310,6 +313,6 @@ def nearest_places_matrix(client,
                 else None
 
     except KeyError:
-        raise travelpayouts.exceptions.ApiError(json.dumps(data))
+        raise travelpayouts.exceptions.ApiError(data['errors'])
 
     return data
