@@ -98,7 +98,9 @@ def prices_latest(client,
         for v in data['data']:
             v['depart_date'] = datetime.datetime.strptime(v['depart_date'], "%Y-%m-%d").date()
             v['found_at'] = datetime.datetime.strptime('{:0<26.26}'.format(v['found_at'] + '.'), "%Y-%m-%dT%H:%M:%S.%f")
-            v['return_date'] = datetime.datetime.strptime(v['return_date'], "%Y-%m-%d").date()
+            v['return_date'] = datetime.datetime.strptime(v['return_date'], "%Y-%m-%d").date() \
+                if v['return_date'] \
+                else None
 
     else:
         raise travelpayouts.exceptions.ApiError(data['errors'])
