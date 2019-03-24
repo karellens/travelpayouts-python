@@ -16,6 +16,7 @@ def prices_latest(client,
                   limit=30,
                   show_to_affiliates=True,
                   sorting='price',
+                  trip_class=0,
                   trip_duration=None
                   ):
     """Returns the cheapest non-stop, one-stop, and two-stop flights for the selected route for each day of
@@ -63,6 +64,9 @@ def prices_latest(client,
         distance_unit_price — by the price for 1 km.
     :type sorting: string
 
+    :param trip_class: trip class 0 - Economy, 1 - Business, 2 - First. Default value is 0. Should be in 0..2.
+    :type trip_class: int
+
     :param trip_duration: the length of stay in weeks or days (for period_type=day).
     :type trip_duration: int
 
@@ -74,7 +78,8 @@ def prices_latest(client,
         'page': page,
         'limit': limit,
         'show_to_affiliates': show_to_affiliates,
-        'sorting': sorting
+        'sorting': sorting,
+        'trip_class': trip_class
     }
 
     if trip_duration:

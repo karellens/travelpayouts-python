@@ -1,16 +1,13 @@
-"""
-Defines exceptions.
-"""
+import json
 
 
 class ApiError(Exception):
     """Represents an exception returned by the remote API."""
-    def __init__(self, status, message=None):
-        self.status = status
+    def __init__(self, message):
         self.message = message
 
     def __str__(self):
-        if self.message is None:
-            return self.status
+        if isinstance(self.message, str):
+            return self.message
         else:
-            return "%s (%s)" % (self.status, self.message)
+            return json.dumps(self.message)
