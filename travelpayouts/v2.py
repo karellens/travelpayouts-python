@@ -97,7 +97,7 @@ def prices_latest(client,
     if 'success' in data:
         for v in data['data']:
             v['depart_date'] = datetime.datetime.strptime(v['depart_date'], "%Y-%m-%d").date()
-            v['found_at'] = datetime.datetime.strptime(v['found_at'], "%Y-%m-%dT%H:%M:%S")
+            v['found_at'] = datetime.datetime.strptime('{:0<26.26}'.format(v['found_at'] + '.'), "%Y-%m-%dT%H:%M:%S.%f")
             v['return_date'] = datetime.datetime.strptime(v['return_date'], "%Y-%m-%d").date()
 
     else:
@@ -154,8 +154,7 @@ def month_matrix(client,
     if 'success' in data:
         for v in data['data']:
             v['depart_date'] = datetime.datetime.strptime(v['depart_date'], "%Y-%m-%d").date()
-            # found_at has ununified format. It may has milliseconds
-            v['found_at'] = datetime.datetime.strptime(v['found_at'].split('.')[0], "%Y-%m-%dT%H:%M:%S")
+            v['found_at'] = datetime.datetime.strptime('{:0<26.26}'.format(v['found_at'] + '.'), "%Y-%m-%dT%H:%M:%S.%f")
             v['return_date'] = datetime.datetime.strptime(v['return_date'], "%Y-%m-%d").date() \
                 if v['return_date'] \
                 else None
@@ -219,8 +218,7 @@ def week_matrix(client,
     if 'success' in data:
         for v in data['data']:
             v['depart_date'] = datetime.datetime.strptime(v['depart_date'], "%Y-%m-%d").date()
-            # found_at has ununified format. It may has milliseconds
-            v['found_at'] = datetime.datetime.strptime(v['found_at'].split('.')[0], "%Y-%m-%dT%H:%M:%S")
+            v['found_at'] = datetime.datetime.strptime('{:0<26.26}'.format(v['found_at'] + '.'), "%Y-%m-%dT%H:%M:%S.%f")
             v['return_date'] = datetime.datetime.strptime(v['return_date'], "%Y-%m-%d").date() \
                 if v['return_date'] \
                 else None
@@ -299,8 +297,7 @@ def nearest_places_matrix(client,
     try:
         for v in data['data']:
             v['depart_date'] = datetime.datetime.strptime(v['depart_date'], "%Y-%m-%d").date()
-            # found_at has ununified format. It may has milliseconds
-            v['found_at'] = datetime.datetime.strptime(v['found_at'].split('.')[0], "%Y-%m-%dT%H:%M:%S")
+            v['found_at'] = datetime.datetime.strptime('{:0<26.26}'.format(v['found_at'] + '.'), "%Y-%m-%dT%H:%M:%S.%f")
             v['return_date'] = datetime.datetime.strptime(v['return_date'], "%Y-%m-%d").date() \
                 if v['return_date'] \
                 else None
